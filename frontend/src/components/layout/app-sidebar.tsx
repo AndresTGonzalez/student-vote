@@ -1,14 +1,4 @@
-import {
-  Calendar,
-  ChevronUp,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  User2,
-} from "lucide-react";
-
-import Image from "next/image";
+import { ChevronUp, User2 } from "lucide-react";
 
 import {
   Sidebar,
@@ -27,56 +17,23 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { ChalkboardSimple, House, Student, Users } from "@phosphor-icons/react";
-
-// Menu items.
-const items = [
-  {
-    title: "Inicio",
-    url: "/admin/home",
-    icon: House,
-  },
-  {
-    title: "Estudiantes",
-    url: "/admin/home/students",
-    icon: Student,
-  },
-  {
-    title: "Cursos",
-    url: "/admin/home/courses",
-    icon: ChalkboardSimple,
-  },
-  {
-    title: "Candidatos",
-    url: "/admin/candidates",
-    icon: Users,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+import { menuItems } from "@/data/menuOptions";
+import Link from "next/link";
 
 export function AppSidebar() {
   return (
     <Sidebar>
-      {/* <SidebarHeader>
-        <div className="w-full hfit flex flex-col justify-center items-center">
-          <Image src="/logo/logo.svg" alt="Logo" width={50} height={50} />
-        </div>
-      </SidebarHeader> */}
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -99,13 +56,7 @@ export function AppSidebar() {
                 className="w-[--radix-popper-anchor-width]"
               >
                 <DropdownMenuItem>
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
+                  <span>Cerrar sesión</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

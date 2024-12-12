@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 
-
 import { Input } from "@/components/ui/input";
 
 import { Label } from "@/components/ui/label";
@@ -17,7 +16,7 @@ export default function AdminLoginPage() {
   };
 
   const handleGoToAdmin = () => {
-    router.push("/admin/home");
+    router.push("/admin/dashboard");
   };
 
   return (
