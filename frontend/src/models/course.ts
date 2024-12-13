@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import { Student } from "./student";
 
 export type Course = {
@@ -7,3 +9,9 @@ export type Course = {
 
   students?: Student[];
 };
+
+export const courseSchema = z.object({
+  id: z.string().optional(),
+  level: z.string().min(2, "El nivel debe tener al menos 2 caracteres"),
+  parallel: z.string(),
+});
