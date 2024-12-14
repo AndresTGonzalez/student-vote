@@ -15,3 +15,9 @@ export const courseSchema = z.object({
   level: z.string().min(2, "El nivel debe tener al menos 2 caracteres"),
   parallel: z.string(),
 });
+
+export type CourseState = {
+  data: Course[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+};

@@ -36,20 +36,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "../ui/input";
 import { parallels } from "@/data/paralles";
+import { addCourse } from "@/redux/services/courseApi";
+import { useAppDispatch } from "@/redux/hooks";
 
-export default function AddCourseModal() {
+export default function CourseFormDialog() {
+  const dispatch = useAppDispatch();
+
   const form = useForm<z.infer<typeof courseSchema>>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
       level: "",
-      parallel: "",
+      parallel: "A",
     },
   });
 
   const onSubmit = (values: z.infer<typeof courseSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    dispatch(addCourse(values));
+    form.reset();
   };
 
   const handleCancel = () => {
@@ -127,7 +130,7 @@ export default function AddCourseModal() {
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Crear</Button>
+              <Button type="submit">Guardar</Button>
             </DialogFooter>
           </form>
         </Form>
