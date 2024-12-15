@@ -28,6 +28,33 @@ model Student {
   lastNames          String
   canVote            Boolean @default(false)
 
-  courseId String
-  course   Course? @relation(fields: [courseId], references: [id])
+  courseId  String
+  course    Course?     @relation(fields: [courseId], references: [id])
+  Candidate Candidate[]
+}
+
+model Dignity {
+  id        String      @id @default(cuid())
+  name      String
+  Candidate Candidate[]
+}
+
+model Candidate {
+  id       String @id @default(cuid())
+  photoUrl String
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+  dignityId String
+  dignity   Dignity @relation(fields: [dignityId], references: [id])
+  listId    String?
+  List      List?   @relation(fields: [listId], references: [id])
+}
+
+model List {
+  id       String @id @default(cuid())
+  name     String
+  photoUrl String
+
+  Candidate Candidate[]
 }

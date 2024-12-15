@@ -8,7 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { CreateCourseDto, UpdateCourseDto } from './course.model';
+import { CreateCourseDto, UpdateCourseDto } from './courses.model';
 
 @Controller('courses')
 export class CoursesController {

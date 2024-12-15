@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateCourseDto, UpdateCourseDto } from './course.model';
+import { CreateCourseDto, UpdateCourseDto } from './courses.model';
 
 @Injectable()
 export class CoursesService {
