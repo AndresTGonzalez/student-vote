@@ -1,8 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCandidateDto {
   @ApiProperty()
-  photoUrl: string;
+  imageId: string;
 
   @ApiProperty()
   studentId: string;
@@ -15,15 +15,15 @@ export class CreateCandidateDto {
 }
 
 export class UpdateCandidateDto {
-  @ApiProperty()
-  photoUrl: string;
+  @ApiPropertyOptional()
+  imageId?: string;
 
-  @ApiProperty()
-  studentId: string;
+  @ApiPropertyOptional()
+  studentId?: string;
 
-  @ApiProperty()
-  dignityId: string;
+  @ApiPropertyOptional()
+  dignityId?: string;
 
-  @ApiProperty()
-  listId: string;
+  @ApiPropertyOptional()
+  listId?: string;
 }

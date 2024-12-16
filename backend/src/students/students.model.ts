@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateStudentDto {
   @ApiProperty()
@@ -10,20 +10,26 @@ export class CreateStudentDto {
   @ApiProperty()
   lastNames: string;
 
+  @ApiProperty({ default: false })
+  canVote?: boolean;
+
   @ApiProperty()
   courseId: string;
 }
 
 export class UpdateStudentDto {
-  @ApiProperty()
-  identificationCard: string;
+  @ApiPropertyOptional()
+  identificationCard?: string;
 
-  @ApiProperty()
-  names: string;
+  @ApiPropertyOptional()
+  names?: string;
 
-  @ApiProperty()
-  lastNames: string;
+  @ApiPropertyOptional()
+  lastNames?: string;
 
-  @ApiProperty()
-  courseId: string;
+  @ApiPropertyOptional()
+  canVote?: boolean;
+
+  @ApiPropertyOptional()
+  courseId?: string;
 }

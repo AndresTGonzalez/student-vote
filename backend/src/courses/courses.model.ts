@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCourseDto {
   @ApiProperty()
@@ -9,9 +9,9 @@ export class CreateCourseDto {
 }
 
 export class UpdateCourseDto {
-  @ApiProperty()
-  level: string;
+  @ApiPropertyOptional()
+  level?: string;
 
-  @ApiProperty()
-  parallel: string;
+  @ApiPropertyOptional()
+  parallel?: string;
 }

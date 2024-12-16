@@ -14,19 +14,23 @@ datasource db {
 }
 
 model Course {
-  id       String @id @default(cuid())
-  level    String
-  parallel String
+  id        String   @id @default(cuid())
+  level     String
+  parallel  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Student Student[]
 }
 
 model Student {
-  id                 String  @id @default(cuid())
+  id                 String   @id @default(cuid())
   identificationCard String
   names              String
   lastNames          String
-  canVote            Boolean @default(false)
+  canVote            Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   courseId  String
   course    Course?     @relation(fields: [courseId], references: [id])
@@ -34,27 +38,57 @@ model Student {
 }
 
 model Dignity {
-  id        String      @id @default(cuid())
+  id        String   @id @default(cuid())
   name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   Candidate Candidate[]
 }
 
 model Candidate {
-  id       String @id @default(cuid())
-  photoUrl String
+  id        String   @id @default(cuid())
+  imageId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   studentId String
   student   Student @relation(fields: [studentId], references: [id])
   dignityId String
   dignity   Dignity @relation(fields: [dignityId], references: [id])
-  listId    String?
-  List      List?   @relation(fields: [listId], references: [id])
+  listId    String
+  List      List    @relation(fields: [listId], references: [id])
+  Image     Image   @relation(fields: [imageId], references: [id])
 }
 
 model List {
-  id       String @id @default(cuid())
-  name     String
-  photoUrl String
+  id        String   @id @default(cuid())
+  name      String
+  imageId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   Candidate Candidate[]
+  Image     Image       @relation(fields: [imageId], references: [id])
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  List      List[]
+  Candidate Candidate[]
+}
+
+model Configuration {
+  id              String   @id @default(cuid())
+  isFirstTime     Boolean  @default(true)
+  period          String
+  votationEnabled Boolean  @default(false)
+  votationStart   DateTime
+  votationEnd     DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
