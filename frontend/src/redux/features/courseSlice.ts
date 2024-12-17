@@ -5,6 +5,7 @@ import {
   addCourse,
   deleteCourse,
   fetchCourses,
+  updateCourse,
 } from "@/redux/services/courseApi";
 
 const initialState: CourseState = {
@@ -55,6 +56,21 @@ const courseSlice = createSlice({
         );
       })
       .addCase(deleteCourse.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? null;
+      });
+
+    builder
+      .addCase(updateCourse.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateCourse.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const course = action.payload as Course;
+        const index = state.data.findIndex((c) => c.id === course.id);
+        state.data[index] = course;
+      })
+      .addCase(updateCourse.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? null;
       });

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogClose,
@@ -28,56 +30,74 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Plus } from "@phosphor-icons/react";
-
-import { courseSchema } from "@/models/course";
+import { Course, courseSchema } from "@/models/course";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "../ui/input";
 import { parallels } from "@/data/paralles";
-import { addCourse } from "@/redux/services/courseApi";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 
-export default function CourseFormDialog() {
-  const dispatch = useAppDispatch();
+type CourseFormDialogProps = {
+  course?: Course;
+  onSubmit: (values: z.infer<typeof courseSchema>) => void;
+  onClose?: () => void;
+  children?: React.ReactNode;
+  isOpen?: boolean;
+};
+
+export default function CourseFormDialog(props: CourseFormDialogProps) {
+  const { status } = useAppSelector((state) => state.courses);
 
   const form = useForm<z.infer<typeof courseSchema>>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
-      level: "",
-      parallel: "A",
+      id: props.course?.id ?? undefined,
+      level: props.course?.level ?? "",
+      parallel: props.course?.parallel ?? "A",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof courseSchema>) => {
-    dispatch(addCourse(values));
-    form.reset();
-  };
+  useEffect(() => {
+    if (props.course) {
+      form.reset({
+        id: props.course.id,
+        level: props.course.level,
+        parallel: props.course.parallel,
+      });
+    }
+  }, [props.course, form]);
 
-  const handleCancel = () => {
+  const resetForm = () => {
     form.reset();
   };
 
   return (
-    <Dialog onOpenChange={(isOpen) => !isOpen && form.reset()}>
-      <DialogTrigger asChild>
-        <Button className="flex flex-row">
-          <Plus className="w-5 h-5" />
-          <span className="text-sm">Nuevo</span>
-        </Button>
-      </DialogTrigger>
+    <Dialog
+      onOpenChange={(isOpen) => !isOpen && form.reset()}
+      open={props.isOpen}
+    >
+      <DialogTrigger asChild>{props.children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Crear nuevo curso</DialogTitle>
+          <DialogTitle>
+            {props.course ? "Actualizar curso" : "Nuevo curso"}
+          </DialogTitle>
           <DialogDescription>
-            Ingrese los datos del nuevo curso.
+            {props.course
+              ? "Actualiza la información del curso"
+              : "Ingresa la información del nuevo curso"}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit((values) => {
+              props.onSubmit(values);
+              console.log(values);
+              resetForm();
+            })}
             className="flex flex-col gap-3"
           >
             <FormField
@@ -125,12 +145,17 @@ export default function CourseFormDialog() {
                 <Button
                   type="button"
                   variant="secondary"
-                  onClick={handleCancel}
+                  onClick={() => {
+                    props.onClose?.();
+                    resetForm();
+                  }}
                 >
                   Cancelar
                 </Button>
               </DialogClose>
-              <Button type="submit">Guardar</Button>
+              <Button type="submit" disabled={status === "loading"}>
+                {status === "loading" ? "Guardando..." : "Guardar"}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

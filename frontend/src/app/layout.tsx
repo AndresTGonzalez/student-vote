@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "../redux/providers";
 import { Open_Sans } from "next/font/google";
+import { Toaster } from "sonner";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${openSans.className} w-screen h-screen`}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
