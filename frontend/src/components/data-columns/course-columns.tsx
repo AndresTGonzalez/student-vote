@@ -6,11 +6,11 @@ import { Course } from "@/models/course";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import { PencilSimple, TrashSimple } from "@phosphor-icons/react";
-import DeleteDialog from "../modals/DeleteDialog";
+import DeleteDialog from "../modals/delete-dialog";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { deleteCourse, updateCourse } from "@/redux/services/courseApi";
 import { toast } from "sonner";
-import CourseFormDialog from "../modals/CourseFormDialog";
+import CourseFormDialog from "../modals/course-form-dialog";
 
 export const courseColumns: ColumnDef<Course>[] = [
   {

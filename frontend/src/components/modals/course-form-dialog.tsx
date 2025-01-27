@@ -95,7 +95,6 @@ export default function CourseFormDialog(props: CourseFormDialogProps) {
           <form
             onSubmit={form.handleSubmit((values) => {
               props.onSubmit(values);
-              console.log(values);
               resetForm();
             })}
             className="flex flex-col gap-3"

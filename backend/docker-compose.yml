@@ -1,5 +1,5 @@
 services:
-  postgres:
+  postgres_student_vote:
     image: postgres:latest
     container_name: postgres_container
     environment:
@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  pgadmin:
+  pgadmin_student_vote:
     image: dpage/pgadmin4:latest
     container_name: pgadmin_container
     environment:
@@ -20,7 +20,7 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - postgres
+      - postgres_student_vote
 
 volumes:
   postgres_data:

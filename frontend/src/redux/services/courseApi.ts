@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchCourses = createAsyncThunk(
   "courses/fetchCourses",
   async () => {
-    const response = await fetch("http://localhost:5500/courses");
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/courses");
     return response.json();
   }
 );
@@ -12,7 +12,7 @@ export const fetchCourses = createAsyncThunk(
 export const addCourse = createAsyncThunk(
   "courses/addCourse",
   async (course: Course) => {
-    const response = await fetch("http://localhost:5500/courses", {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,13 +26,16 @@ export const addCourse = createAsyncThunk(
 export const updateCourse = createAsyncThunk(
   "courses/updateCourse",
   async (course: Course) => {
-    const response = await fetch(`http://localhost:5500/courses/${course.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(course),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/courses/${course.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(course),
+      }
+    );
     return response.json();
   }
 );
@@ -40,9 +43,12 @@ export const updateCourse = createAsyncThunk(
 export const deleteCourse = createAsyncThunk(
   "courses/deleteCourse",
   async (id: string) => {
-    const response = await fetch(`http://localhost:5500/courses/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/courses/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     return response.json();
   }
 );
