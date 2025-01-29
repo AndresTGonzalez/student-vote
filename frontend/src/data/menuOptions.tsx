@@ -1,6 +1,7 @@
 import { MenuOption } from "@/models/menuOption";
 import {
   ChalkboardSimple,
+  Gear,
   House,
   Student,
   UsersThree,
@@ -26,5 +27,10 @@ export const menuItems: MenuOption[] = [
     title: "Listas",
     url: "/admin/dashboard/lists",
     icon: UsersThree,
+  },
+  {
+    title: "Configuraciones",
+    url: "/admin/dashboard/settings",
+    icon: Gear,
   },
 ];

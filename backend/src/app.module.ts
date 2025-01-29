@@ -9,6 +9,7 @@ import { CandidatesModule } from './candidates/candidates.module';
 import { ListsModule } from './lists/lists.module';
 import { ImagesModule } from './images/images.module';
 import { ConfigurationModule } from './configuration/configuration.module';
+import { ImportDataModule } from './import-data/import-data.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ConfigurationModule } from './configuration/configuration.module';
     ListsModule,
     ImagesModule,
     ConfigurationModule,
+    ImportDataModule,
   ],
   providers: [PrismaService],
 })

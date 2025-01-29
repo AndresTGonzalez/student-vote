@@ -9,6 +9,16 @@ export const fetchStudents = createAsyncThunk(
   }
 );
 
+export const fetchStudentsByCourse = createAsyncThunk(
+  "students/fetchStudentsByCourse",
+  async (courseId: string) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/students/course/${courseId}`
+    );
+    return response.json();
+  }
+);
+
 export const addStudent = createAsyncThunk(
   "students/addStudent",
   async (student: Student) => {

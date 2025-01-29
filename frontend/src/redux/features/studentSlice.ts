@@ -5,6 +5,7 @@ import {
   addStudent,
   deleteStudent,
   fetchStudents,
+  fetchStudentsByCourse,
   updateStudent,
 } from "@/redux/services/studentApi";
 
@@ -28,6 +29,19 @@ const studentSlice = createSlice({
         state.data = action.payload as Student[];
       })
       .addCase(fetchStudents.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? null;
+      });
+
+    builder
+      .addCase(fetchStudentsByCourse.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchStudentsByCourse.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload as Student[];
+      })
+      .addCase(fetchStudentsByCourse.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? null;
       });

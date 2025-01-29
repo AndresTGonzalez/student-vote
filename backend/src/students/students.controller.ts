@@ -16,12 +16,18 @@ export class StudentsController {
 
   @Get()
   async findAll() {
+    console.log('Se ejecuta');
     return this.studentsService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.studentsService.findOne(id);
+  }
+
+  @Get('course/:course')
+  async findStudentsByCourse(@Param('course') courseId: string) {
+    return this.studentsService.findStudentsByCourse(courseId);
   }
 
   @Post()

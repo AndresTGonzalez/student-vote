@@ -24,4 +24,11 @@ export class StudentsService {
   async remove(id: string) {
     return this.prisma.student.delete({ where: { id } });
   }
+
+  async findStudentsByCourse(courseId: string) {
+    return this.prisma.student.findMany({
+      where: { courseId },
+      include: { course: true },
+    });
+  }
 }
